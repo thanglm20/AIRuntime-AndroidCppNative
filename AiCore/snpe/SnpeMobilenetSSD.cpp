@@ -33,15 +33,15 @@ int SnpeMobilenetSSD::initSnpeMobilenetSSD(std::string containerPath)
     LOG_SUCCESS("Configured MobilenetSSD network successfully\n");
     return 0;
 }
-int SnpeMobilenetSSD::initSnpeMobilenetSSD(std::string containerPath, std::string targetDevice)
+int SnpeMobilenetSSD::initSnpeMobilenetSSD(std::string containerPath, airuntime::DeviceType device)
 {
     std::vector<std::string> outputLayers = {"add", "Postprocessor/BatchMultiClassNonMaxSuppression"};
     this->snpeMobilenetSSD->runtime = SNPE_RUNTIME;
-    if(targetDevice == "DSP")
+    if(device == airuntime::DeviceType::DSP)
     {
         this->snpeMobilenetSSD->runtime = zdl::DlSystem::Runtime_t::DSP;
     }
-    else if (targetDevice == "GPU")
+    else if (device == airuntime::DeviceType::GPU)
     {
         this->snpeMobilenetSSD->runtime = zdl::DlSystem::Runtime_t::GPU;
     }
@@ -134,8 +134,7 @@ int SnpeMobilenetSSD::executeSnpeMobilenetSSD(const cv::Mat& img, std::vector<st
                 if(obj.rect.height < 0) continue;
                 objects.push_back(obj);
             }
-        }   
-        
+        }          
     }
     catch (const std::exception& error) 
     {

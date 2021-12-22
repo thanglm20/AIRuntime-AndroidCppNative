@@ -6,8 +6,7 @@
 ********************************************************************************/
 
 #include "SnpeCommLib.hpp"
-#include "ImageProcessor.hpp"
-#include "fastcv.h"
+
 
 zdl::DlSystem::Runtime_t checkRuntime(zdl::DlSystem::Runtime_t runtime)
 {
