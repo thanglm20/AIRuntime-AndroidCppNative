@@ -10,11 +10,12 @@
 #include "../AIExecutor.hpp"
 #include "SnpeMobilenetSSD.hpp"
 
-class SnpeExecutor : public airuntime::AIExecutor
+class SnpeExecutor : public AIExecutor
 {
 private:
     /* data */
-    SnpeMobilenetSSD* m_detector;
+    SnpeMobilenetSSD* m_detector = nullptr;
+    vector<string> m_labels;
 public:
     explicit SnpeExecutor(airuntime::DeviceType device, 
                             airuntime::AlgTypeAI algType,

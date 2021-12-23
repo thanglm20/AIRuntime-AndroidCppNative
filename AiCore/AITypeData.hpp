@@ -20,7 +20,7 @@ using namespace std;
 using namespace cv;
 
 #define USE_SNPE
-#define USE_NCNN
+// #define USE_NCNN
 #define USE_TFLITE
 #define USE_MNN
 
@@ -44,7 +44,7 @@ enum STATUS {
         UNSUPPORTED = 2,
         INVALID_ARGS = 3,
     };
-
+#define SNPE_LIB_PATH "/data/snpe/dsp/lib"
 
 #define PATH_DICTIONARY "/data/thanglmb/models/paddle/anpr.txt"
 

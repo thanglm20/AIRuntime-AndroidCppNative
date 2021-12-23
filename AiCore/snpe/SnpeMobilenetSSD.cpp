@@ -64,16 +64,9 @@ int SnpeMobilenetSSD::executeSnpeMobilenetSSD(const cv::Mat& img, std::vector<st
     try
     {
         //Execute the network and store the outputs that were specified when creating the network in a TensorMap
-        auto start0 = std::chrono::high_resolution_clock::now(); 
         std::unique_ptr<zdl::DlSystem::ITensor> input;
         input = convertMat2BgrFloat(this->snpeMobilenetSSD->snpe, img);
 
-        auto end0 = std::chrono::high_resolution_clock::now();    
-        auto duration0 = std::chrono::duration_cast<std::chrono::milliseconds>(end0 - start0);
-        std::cout << "Time creation of tensor: " <<  duration0.count() << std::endl;
-
-
-        auto start = std::chrono::high_resolution_clock::now();   
         zdl::DlSystem::TensorMap outputTensorMap;
         int exeStatus  = this->snpeMobilenetSSD->snpe->execute(input.get(), outputTensorMap);
         if(exeStatus != true)
@@ -81,13 +74,6 @@ int SnpeMobilenetSSD::executeSnpeMobilenetSSD(const cv::Mat& img, std::vector<st
             printf("Error while executing the MobilenetSSD network \n");
             return -1;
         }
-        auto end = std::chrono::high_resolution_clock::now();    
-        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-        std::cout << "Time execute: " <<  duration.count() << std::endl;
-
-        auto duration_total = std::chrono::duration_cast<std::chrono::milliseconds>(end - start0);
-        std::cout << "Time total: " <<  duration_total.count() << std::endl;
-
         
         zdl::DlSystem::StringList tensorNames = outputTensorMap.getTensorNames();
         // for(auto st : tensorNames)
@@ -95,9 +81,7 @@ int SnpeMobilenetSSD::executeSnpeMobilenetSSD(const cv::Mat& img, std::vector<st
         std::string scoresName = "Postprocessor/BatchMultiClassNonMaxSuppression_scores";
         std::string classesName = "detection_classes:0";
         std::string boxesName = "Postprocessor/BatchMultiClassNonMaxSuppression_boxes";
-        // std::string scoresName = "detection_scores:0";
-        // std::string classesName = "detection_classes:0";
-        // std::string boxesName = "detection_boxes:0";
+
         zdl::DlSystem::ITensor *outTensorScores = outputTensorMap.getTensor(scoresName.c_str());
         zdl::DlSystem::ITensor *outTensorClasses = outputTensorMap.getTensor(classesName.c_str());
         zdl::DlSystem::ITensor *outTensorBoxes = outputTensorMap.getTensor(boxesName.c_str());

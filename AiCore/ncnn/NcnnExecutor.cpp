@@ -12,7 +12,7 @@ NcnnExecutor::NcnnExecutor(airuntime::DeviceType device,
                             std::string modelWeight, 
                             std::string modelParam
                             ) 
-    : airuntime::AIExecutor(airuntime::ExecutorType::NCNN, device, algType, pathLabel, modelWeight, modelParam)
+    : AIExecutor(airuntime::ExecutorType::NCNN, device, algType, pathLabel, modelWeight, modelParam)
     {
         cout << "==============> NCNN Executor <=================\n";
         cout << "Model weight: " << getModelWeight() << endl;

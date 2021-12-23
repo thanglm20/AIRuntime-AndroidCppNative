@@ -10,11 +10,14 @@
 #include "AIExecutor.hpp"
 
 namespace airuntime{
+namespace aicore{
+    
 class AIUserFactory
 {
 private:
     /* data */
-    airuntime::AIExecutor* m_executor;
+    AIExecutor* m_executor;
+    bool m_flInitiated = false;
 public:
     explicit AIUserFactory(airuntime::ExecutorType executor,
                     airuntime::DeviceType device,
@@ -22,20 +25,15 @@ public:
                     std::string pathLabel,
                     std::string modelWeight,
                     std::string modelParam = ""
-                    );
-                
+                    );           
     ~AIUserFactory();
     
-    STATUS init();
     STATUS run(const Mat& img, 
                 vector<ObjectTrace>& objects,
                 float threshold);
     STATUS release();
 };
 }
-
-
-
-
+}
 
 #endif

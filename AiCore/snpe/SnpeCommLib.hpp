@@ -43,6 +43,8 @@ typedef struct snpeBuilders
     zdl::DlSystem::Runtime_t runtime;
 }snpeBuilders;
 
+bool SetAdspLibraryPath(std::string nativeLibPath);
+
 std::unique_ptr<zdl::SNPE::SNPE> setBuilderSNPE(std::string containerPath, std::vector<std::string> outputLayers, zdl::DlSystem::Runtime_t target_device);
 //GPU_FLOAT16
 zdl::DlSystem::Runtime_t checkRuntime(zdl::DlSystem::Runtime_t runtime);

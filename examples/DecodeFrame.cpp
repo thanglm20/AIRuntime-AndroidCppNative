@@ -48,17 +48,17 @@ int DecodeFrame::open( const char* file_video)
         return -1;
     }
 
-    // // print input video stream informataion
-    // std::cout
-    //     << "file_video: " << file_video << "\n"
-    //     << "format: " << inctx->iformat->name << "\n"
-    //     << "vcodec: " << vcodec->name << "\n"
-    //     << "size:   " << vstrm->codec->width << 'x' << vstrm->codec->height << "\n"
-    //     << "fps:    " << av_q2d(vstrm->codec->framerate) << " [fps]\n"
-    //     << "length: " << av_rescale_q(vstrm->duration, vstrm->time_base, {1,1000}) / 1000. << " [sec]\n"
-    //     << "pixfmt: " << av_get_pix_fmt_name(vstrm->codec->pix_fmt) << "\n"
-    //     << "frame:  " << vstrm->nb_frames << "\n"
-    //     << std::flush;
+    // print input video stream informataion
+    std::cout
+        << "file_video: " << file_video << "\n"
+        << "format: " << inctx->iformat->name << "\n"
+        << "vcodec: " << vcodec->name << "\n"
+        << "size:   " << vstrm->codec->width << 'x' << vstrm->codec->height << "\n"
+        << "fps:    " << av_q2d(vstrm->codec->framerate) << " [fps]\n"
+        << "length: " << av_rescale_q(vstrm->duration, vstrm->time_base, {1,1000}) / 1000. << " [sec]\n"
+        << "pixfmt: " << av_get_pix_fmt_name(vstrm->codec->pix_fmt) << "\n"
+        << "frame:  " << vstrm->nb_frames << "\n"
+        << std::flush;
 
     // initialize sample scaler
     dst_width = vstrm->codec->width;

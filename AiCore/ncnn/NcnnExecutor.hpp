@@ -9,7 +9,7 @@
 
 #include "../AIExecutor.hpp"
 
-class NcnnExecutor : public airuntime::AIExecutor
+class NcnnExecutor : public AIExecutor
 {
 private:
     /* data */

@@ -8,10 +8,10 @@
 #define AnprRecognizer_hpp
 
 #include <regex>
-#include "ocr_db_crnn.hpp"
+#include "ocr/ocr_db_crnn.hpp"
 #include "AnprDetector.hpp"
-#include "ObjectTracking.hpp"
-#include "MotionDetector.hpp"
+#include "../../AiCore/sort-tracker/ObjectTracking.hpp"
+
 
 
 #define MAX_COUNT_UNKNOWN 10
@@ -29,6 +29,8 @@ typedef struct OcrConfig
     std::shared_ptr<PaddlePredictor> recog;
 }OcrConfig;
 
+namespace airuntime{
+    namespace aiengine{
 
 struct PlateInfor
 {
@@ -48,8 +50,7 @@ class AnprRecognizer
     
 private:
     /* data */
-    Nations nations;
-    MotionDetector motion;
+    Nations m_nations;
     ObjectTracking* tracker = nullptr;
     AnprDetector* detector = nullptr;
     OcrConfig* ocrVN = nullptr;
@@ -64,14 +65,19 @@ private:
     int initUS(std::string pathDet, std::string pathRecog);
     int initMalay(std::string pathDet, std::string pathRecog);
     bool isValidPlate(cv::Mat& img);
+
 public:
-    AnprRecognizer(/* args */);
+    explicit AnprRecognizer(Nations nation);
     ~AnprRecognizer();
-    int init(Nations nation);
+    int init();
     int recognize( cv::Mat& img, std::vector<PlateInfor>& plates);
-    int recognize( cv::Mat& img, std::vector<PlateInfor>& plates, bool checkIsMotion, Rect& rectMotion);
     int trackAnpr( Mat &img, std::vector<PlateInfor>& plates);
 };
+
+
+    }
+}
+
 
 
 #endif

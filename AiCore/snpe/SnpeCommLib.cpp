@@ -7,6 +7,11 @@
 
 #include "SnpeCommLib.hpp"
 
+bool SetAdspLibraryPath(std::string nativeLibPath) {
+    std::stringstream path;
+    path << nativeLibPath << ";/system/lib/rfsa/adsp;/system/vendor/lib/rfsa/adsp;/dsp";
+    return setenv("ADSP_LIBRARY_PATH", path.str().c_str(), 1 /*override*/) == 0;
+}
 
 zdl::DlSystem::Runtime_t checkRuntime(zdl::DlSystem::Runtime_t runtime)
 {
@@ -52,10 +57,8 @@ std::unique_ptr<zdl::SNPE::SNPE> setBuilderSNPE(std::string containerPath, std::
        std::cerr << "Error while opening the container file." << std::endl;
        return nullptr;
     }
-    printf("Loaded dlc file successfully\n");
 
     // choose and check target runtime
-    
     static zdl::DlSystem::Runtime_t runtime = checkRuntime(target_device);
     if(runtime == zdl::DlSystem::Runtime_t::DSP)
         printf("===========> DSP Runtime <==============\n");
